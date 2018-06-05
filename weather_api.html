@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open Weather PORTAL</title>
+   <style >
+   h1{
+   	text-align: center;
+   	margin-bottom:10px;
+   	color:		#1c1d22;
+   }
+    body{
+        	background-image: url("silver.jpg");
+        	background-position: left top;
+        	background-repeat: repeat;
+		
+        	 font-family: 'Open Sans',sans-serif;
+              
+        }
+
+   	#img{
+   	
+   		float:left;
+   	}
+   	#box{
+   		  position: absolute;
+    margin-top: 20px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+   	}
+   	#box2{
+   		 position: absolute;
+    margin-top: 150px;
+    top:35%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+
+   	}
+   	#text{
+   		width:400px;
+   		height:40px;
+   		font-size: 25px;
+   		color:	#5b5e6a;
+   		padding-left: 10px;
+   		background-color:	#f1eaee;
+   		border:4px solid 	#5b5e6a;
+   		border-radius: 8px;
+   	}
+   	#button{
+   		padding:8px;
+   		font-size: 22px;
+   		color:	#5b5e6a;
+   		background-color:	#f1eaee;
+   		border:4px solid 	#5b5e6a;
+   		border-radius: 30%;
+   		margin-left: 10px;
+
+   	}
+   	#button:hover{
+   	    color:#373a42;
+   		background-color:#b0aaad;	
+   	}
+   	ul{
+   		
+   		list-style: none;
+   	    overflow: auto;
+   	}
+   	ul li{
+   		font-size: 30px;
+   		margin-bottom: 10px;  
+   		padding-left: 12px ;		
+   		border:3px solid 		#47484a;
+   		color:	#646e83;
+   		border-radius:6px;
+   		background-color:	#f0e9ee;
+   	}
+   	#img{
+   		border:4px solid 		#47484a;
+   		border-radius: 50%;
+   		background-color: 	#f0e9ee;
+
+   	}
+   </style>
+</head>
+<body>
+	<h1>Current Weather In Your City</h1>
+	<div id="box">
+	<input type="text"  placeholder="Enter Your City" id="text">
+	<button id="button">Search</button>
+
+	</div>
+
+	<div id="box2">
+	    <div id="img"></div>
+	    <div id="disp"></div>
+	</div>    
+	
+<script>
+	
+	document.getElementById("button").addEventListener('click',terminator);
+    
+    function terminator(){
+    	var value=document.getElementById("text").value;
+    	
+   
+      var ajax= new XMLHttpRequest();
+    	ajax.onreadystatechange = function(){
+    		if(this.readyState== 4  && this.status==200){
+    			
+                 var user = JSON.parse(ajax.responseText);
+               
+                 var weat= '';
+                 weat+='<ul>'+'<li>'+"<img src=http://openweathermap.org/images/flags/"+user.sys.country.toLowerCase()+".png  width='30' height='25'>"+user.name+','+user.sys.country+'       </li>'+
+                  '<li>'+'Description: '+user.weather[0].description+'</li>'+
+                      '<li>'+user.main.temp+'&deg;C'+', Temperature from '+user.main.temp_min+' to '+user.main.temp_max+'&deg;C'+'</li>'+
+                         '<li>'+"Winds: "+user.wind.speed+'m/s'+'</li>'+
+                          '<li>'+"Pressure: "+user.main.pressure+'hpa'+'</li>'+
+                           '<li>'+"Clouds: "+user.clouds.all+'%'+'</li>'+
+                            '<li>'+"Humidity: "+user.main.humidity+'%'+'</li>'+'</ul>';
+             document.getElementById("disp").innerHTML=weat;
+
+             document.getElementById("img").innerHTML="<img src=http://openweathermap.org/img/w/"+user.weather[0].icon+".png  width='90' height='70'>";
+             
+
+
+    		}
+    	};
+    	ajax.open("GET","http://api.openweathermap.org/data/2.5/weather?q="+value+"&APPID=1240a6c9672cbf15fc4d55402d3c3bfa&units=metric",true);
+    	ajax.send();
+    	 document.getElementById("text").value="";
+    	 weat='';
+      
+    }
+</script>
+</body>
+</html>
