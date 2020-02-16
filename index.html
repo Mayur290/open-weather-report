@@ -111,7 +111,7 @@
                  var user = JSON.parse(ajax.responseText);
                
                  var weat= '';
-                 weat+='<ul>'+'<li>'+"<img src=http://openweathermap.org/images/flags/"+user.sys.country.toLowerCase()+".png  width='30' height='25'>"+user.name+','+user.sys.country+'       </li>'+
+                 weat+='<ul>'+'<li>'+"<img src=https://openweathermap.org/images/flags/"+user.sys.country.toLowerCase()+".png  width='30' height='25'>"+user.name+','+user.sys.country+'       </li>'+
                   '<li>'+'Description: '+user.weather[0].description+'</li>'+
                       '<li>'+user.main.temp+'&deg;C'+', Temperature from '+user.main.temp_min+' to '+user.main.temp_max+'&deg;C'+'</li>'+
                          '<li>'+"Winds: "+user.wind.speed+'m/s'+'</li>'+
@@ -120,13 +120,13 @@
                             '<li>'+"Humidity: "+user.main.humidity+'%'+'</li>'+'</ul>';
              document.getElementById("disp").innerHTML=weat;
 
-             document.getElementById("img").innerHTML="<img src=http://openweathermap.org/img/w/"+user.weather[0].icon+".png  width='90' height='70'>";
+             document.getElementById("img").innerHTML="<img src=https://openweathermap.org/img/w/"+user.weather[0].icon+".png  width='90' height='70'>";
              
 
 
     		}
     	};
-    	ajax.open("GET","http://api.openweathermap.org/data/2.5/weather?q="+value+"&APPID=1240a6c9672cbf15fc4d55402d3c3bfa&units=metric",true);
+    	ajax.open("GET","https://api.openweathermap.org/data/2.5/weather?q="+value+"&APPID=1240a6c9672cbf15fc4d55402d3c3bfa&units=metric",true);
     	ajax.send();
     	 document.getElementById("text").value="";
     	 weat='';
